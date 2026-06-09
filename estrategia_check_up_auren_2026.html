@@ -214,12 +214,38 @@
     h1 { font-size: 24px; }
     h2 { font-size: 24px; }
     .header-row { flex-direction: column; align-items: flex-start; gap: 16px; }
-    .kpi-grid, .segment-grid, .channel-grid, .report-includes { grid-template-columns: 1fr; }
+    .kpi-grid, .segment-grid, .channel-grid, .report-includes, .reports-access { grid-template-columns: 1fr; }
     .video-grid { grid-template-columns: repeat(2, 1fr); }
   }
   @media (max-width: 520px) {
     .video-grid { grid-template-columns: 1fr; }
   }
+
+  /* Reportes disponibles */
+  .reports-access { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .report-cta {
+    background: #161616; border: 1px solid #2a2a2a; border-radius: 14px; padding: 1.8rem 1.8rem;
+    display: flex; flex-direction: column; gap: 14px; position: relative; overflow: hidden;
+    transition: border-color .25s ease, transform .25s ease;
+  }
+  .report-cta.available { border-color: rgba(211,32,39,0.45); }
+  .report-cta.available:hover { transform: translateY(-3px); border-color: #D32027; }
+  .report-cta.soon { opacity: 0.85; }
+  .report-status {
+    align-self: flex-start; font-size: 11px; font-weight: 600; letter-spacing: 0.6px; text-transform: uppercase;
+    padding: 4px 12px; border-radius: 20px;
+  }
+  .report-status.available { color: #4ade80; background: rgba(74,222,128,0.12); border: 1px solid rgba(74,222,128,0.3); }
+  .report-status.soon { color: #a0a0a0; background: rgba(255,255,255,0.06); border: 1px solid #2a2a2a; }
+  .report-cta-title { font-size: 20px; font-weight: 500; color: #f5f5f5; letter-spacing: -0.2px; }
+  .report-cta-meta { font-size: 13px; color: #a0a0a0; line-height: 1.5; flex: 1; }
+  .report-btn {
+    align-self: flex-start; margin-top: 4px; display: inline-flex; align-items: center; gap: 8px;
+    font-size: 14px; font-weight: 500; text-decoration: none; padding: 11px 20px; border-radius: 8px;
+    background: #D32027; color: #fff; transition: background .15s ease, transform .15s ease;
+  }
+  .report-btn:hover { background: #b51d23; transform: translateX(2px); }
+  .report-btn.disabled { background: #1c1c1c; color: #707070; border: 1px solid #2a2a2a; cursor: not-allowed; pointer-events: none; }
 </style>
 </head>
 <body>
@@ -234,6 +260,7 @@
   <a href="#fases" class="nav-dot" data-target="fases"><span class="nav-dot-marker"></span><span class="nav-dot-label">Fases</span></a>
   <a href="#reportes" class="nav-dot" data-target="reportes"><span class="nav-dot-marker"></span><span class="nav-dot-label">Reportes</span></a>
   <a href="#optimizacion" class="nav-dot" data-target="optimizacion"><span class="nav-dot-marker"></span><span class="nav-dot-label">Optimización</span></a>
+  <a href="#reportes-disponibles" class="nav-dot" data-target="reportes-disponibles"><span class="nav-dot-marker"></span><span class="nav-dot-label">Reportes</span></a>
 </nav>
 
 <div class="container">
@@ -474,6 +501,28 @@
       <div class="insight-stat">0%</div>
       <p class="insight-title">Hasta el momento, ningún participante ha completado el diagnóstico al 100%</p>
       <p class="insight-text">A partir de este hallazgo en el comportamiento de los usuarios, se ajustará la experiencia del formulario para hacerlo <span class="accent">más ágil, claro y amigable</span>, y así reducir la fricción durante el proceso de respuesta. El objetivo: convertir más visitas en Check-Ups completados.</p>
+    </div>
+  </section>
+
+  <section id="reportes-disponibles">
+    <p class="section-num">Reportes de la campaña</p>
+    <h2>Consulta los resultados</h2>
+    <p class="section-subtitle">Los reportes se publican al cierre de cada fase. Aquí encontrarás el acceso directo a cada uno conforme estén disponibles.</p>
+    <div class="reports-access">
+      <a class="report-cta available" href="reporte_1_fase_1_auren_2026.html">
+        <span class="report-status available">● Disponible</span>
+        <span class="report-cta-title">Reporte · Fase 1</span>
+        <span class="report-cta-meta">Resultados de campaña del 22 de mayo al 9 de junio de 2026. Alcance, clics, embudo de conversión y la optimización del formulario.</span>
+        <span class="report-btn">Ver reporte de la Fase 1
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </span>
+      </a>
+      <div class="report-cta soon">
+        <span class="report-status soon">Próximamente</span>
+        <span class="report-cta-title">Reporte · Fase 2</span>
+        <span class="report-cta-meta">Cierre de la Fase 2 (10 al 28 de junio de 2026). Disponible al finalizar el periodo de la siguiente fase.</span>
+        <span class="report-btn disabled">Próximamente</span>
+      </div>
     </div>
   </section>
 
