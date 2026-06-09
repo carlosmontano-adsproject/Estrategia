@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reporte 1 · Cierre de Fase 1 · Check-Up Empresarial Auren</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; color: #f5f5f5; background: #0a0a0a; line-height: 1.6; font-size: 16px; overflow-x: hidden; }
+  .container { max-width: 1080px; margin: 0 auto; padding: 0 2rem; }
+
+  /* Side nav */
+  .side-nav { position: fixed; right: 32px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 18px; z-index: 100; }
+  .nav-dot { display: flex; align-items: center; gap: 14px; text-decoration: none; cursor: pointer; }
+  .nav-dot-marker { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.25); transition: all .3s ease; flex-shrink: 0; }
+  .nav-dot:hover .nav-dot-marker { background: rgba(255,255,255,0.6); }
+  .nav-dot.active .nav-dot-marker { background: #D32027; width: 12px; height: 12px; box-shadow: 0 0 0 4px rgba(211,32,39,0.15); }
+  .nav-dot-label { color: rgba(255,255,255,0.5); font-size: 11px; text-transform: uppercase; letter-spacing: 1px; opacity: 0; transform: translateX(-8px); transition: all .3s ease; white-space: nowrap; font-weight: 500; }
+  .nav-dot.active .nav-dot-label, .nav-dot:hover .nav-dot-label { opacity: 1; transform: translateX(0); color: #f5f5f5; }
+
+  /* Header */
+  header.top { padding: 3rem 0 1.5rem; }
+  .header-row { display: flex; align-items: center; justify-content: space-between; gap: 32px; }
+  .header-text { flex: 1; }
+  .logo { line-height: 0; flex-shrink: 0; }
+  h1 { font-size: 30px; font-weight: 500; color: #f5f5f5; letter-spacing: -0.5px; margin-bottom: 6px; }
+  .subtitle { font-size: 14px; color: #a0a0a0; }
+  .pill { display:inline-block; font-size:11px; letter-spacing:1px; text-transform:uppercase; color:#D32027; background:rgba(211,32,39,0.12); border:1px solid rgba(211,32,39,0.3); padding:4px 10px; border-radius:20px; margin-bottom:10px; font-weight:600; }
+  .brand-accent { width: 48px; height: 3px; background: #D32027; border-radius: 2px; margin-top: 18px; }
+
+  /* Section base */
+  section { padding: 2.6rem 0; display: flex; flex-direction: column; justify-content: center; }
+  .section-num { font-size: 11px; color: #b0b0b0; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+  h2 { font-size: 32px; font-weight: 500; color: #f5f5f5; margin-bottom: 6px; letter-spacing: -0.3px; }
+  .section-subtitle { font-size: 14px; color: #b8b8b8; margin-bottom: 1.4rem; max-width: 680px; }
+
+  /* Hero */
+  .hero-section { text-align: center; padding-top: 3rem; padding-bottom: 2rem; }
+  .hero-eyebrow { font-size: 11px; color: #b0b0b0; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 22px; }
+  .hero-headline { font-size: 40px; font-weight: 500; color: #f5f5f5; line-height: 1.2; margin: 0 auto 30px; letter-spacing: -0.8px; max-width: 820px; }
+  .hero-headline .accent { color: #D32027; }
+  .hero-numbers { display: flex; justify-content: center; gap: 48px; flex-wrap: wrap; margin-bottom: 28px; }
+  .hero-num-item { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+  .hero-highlight { color: #D32027; font-size: 58px; font-weight: 500; line-height: 1; font-variant-numeric: tabular-nums; }
+  .hero-num-label { font-size: 12px; color: #a0a0a0; text-transform: uppercase; letter-spacing: 1px; }
+  .hero-supporting { font-size: 16px; color: #a0a0a0; line-height: 1.6; max-width: 660px; margin: 0 auto; }
+
+  /* KPI grid */
+  .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .kpi-grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+  .kpi { background: #161616; border: 1px solid #2a2a2a; border-radius: 12px; padding: 1.3rem 1.4rem; }
+  .kpi-label { font-size: 11px; color: #c0c0c0; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 6px; }
+  .kpi-hint { font-size: 12px; color: #a8a8a8; margin-bottom: 12px; line-height: 1.5; }
+  .kpi-value { font-size: 30px; font-weight: 500; color: #f5f5f5; line-height: 1; font-variant-numeric: tabular-nums; }
+  .kpi-sub { font-size: 12px; color: #8a8a8a; margin-top: 8px; }
+
+  /* Chart */
+  .chart-card { background: #161616; border: 1px solid #2a2a2a; border-radius: 12px; padding: 1.4rem 1.6rem; }
+  .chart-wrap { position: relative; height: 340px; }
+
+  /* Interacción */
+  .inter-grid { display: grid; grid-template-columns: 1.3fr 2fr; gap: 14px; }
+  .inter-hero { background: #161616; border: 1px solid #2a2a2a; border-radius: 12px; padding: 1.6rem 1.7rem; display:flex; flex-direction:column; justify-content:center; }
+  .inter-hero-value { font-size: 46px; font-weight: 500; color: #D32027; line-height: 1; font-variant-numeric: tabular-nums; margin-bottom: 8px; }
+  .inter-hero-label { font-size: 13px; color: #a8a8a8; }
+  .inter-cards { display:grid; grid-template-columns: repeat(2,1fr); gap: 14px; }
+  .inter-card { background:#161616; border:1px solid #2a2a2a; border-radius:12px; padding:1.2rem 1.4rem; }
+  .inter-card .v { font-size:26px; font-weight:500; font-variant-numeric:tabular-nums; }
+  .inter-card .l { font-size:12px; color:#a8a8a8; text-transform:uppercase; letter-spacing:.5px; margin-top:4px; }
+
+  /* Funnel */
+  .funnel { display:flex; flex-direction:column; gap:10px; margin-top:.5rem; }
+  .funnel-row { display:grid; grid-template-columns: 220px 1fr; gap:18px; align-items:center; }
+  .funnel-meta { text-align:right; }
+  .funnel-meta .fl { font-size:12px; color:#a8a8a8; text-transform:uppercase; letter-spacing:.5px; }
+  .funnel-meta .fv { font-size:24px; font-weight:500; color:#f5f5f5; font-variant-numeric:tabular-nums; }
+  .funnel-bar-track { background:#141414; border:1px solid #232323; border-radius:10px; height:54px; position:relative; overflow:hidden; }
+  .funnel-bar { height:100%; width:0; background:linear-gradient(90deg,#D32027,#a3171d); border-radius:9px; transition:width 1.3s cubic-bezier(.4,0,.2,1); display:flex; align-items:center; padding-left:16px; }
+  .funnel-bar.zero { background:#2a2a2a; }
+  .funnel-bar-pct { font-size:13px; color:#fff; font-weight:600; white-space:nowrap; opacity:0; transition:opacity .5s ease .6s; }
+  .funnel-bar.zero .funnel-bar-pct { color:#f87171; }
+  .funnel-conv { font-size:11.5px; color:#8a8a8a; margin-left:8px; }
+
+  /* Insight card */
+  .insight-card { background: #161616; border: 1px solid #2a2a2a; border-radius: 12px; padding: 1.8rem 2rem; border-left: 3px solid #D32027; }
+  .insight-stat { font-size: 44px; font-weight: 500; color: #D32027; line-height: 1; margin-bottom: 10px; font-variant-numeric: tabular-nums; }
+  .insight-title { font-size: 18px; font-weight: 500; margin-bottom: 10px; color: #f5f5f5; }
+  .insight-text { font-size: 14px; color: #a8a8a8; line-height: 1.7; max-width: 760px; }
+  .insight-text .accent { color: #f5f5f5; font-weight: 500; }
+
+  /* Before/After form mockups */
+  .ba-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; align-items:start; }
+  .ba-col-label { display:flex; align-items:center; gap:10px; margin-bottom:10px; }
+  .ba-tag { font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:.6px; padding:3px 10px; border-radius:20px; }
+  .ba-tag.before { background:rgba(248,113,113,.12); color:#f87171; border:1px solid rgba(248,113,113,.3); }
+  .ba-tag.after { background:rgba(74,222,128,.12); color:#4ade80; border:1px solid rgba(74,222,128,.3); }
+  .ba-friction { font-size:12px; color:#8a8a8a; }
+  .form-mock { background:#f5f4f2; border-radius:14px; padding:20px 18px; color:#1a1a1a; box-shadow:0 8px 30px rgba(0,0,0,.35); }
+  .fm-badge { display:inline-block; font-size:9px; font-weight:700; letter-spacing:.6px; text-transform:uppercase; color:#c0392b; background:#fdeaea; padding:4px 10px; border-radius:20px; margin-bottom:10px; }
+  .fm-title { font-size:18px; font-weight:700; color:#1a1a1a; margin-bottom:6px; }
+  .fm-sub { font-size:11.5px; color:#666; line-height:1.5; margin-bottom:14px; }
+  .fm-sub b { color:#c0392b; }
+  .fm-field { margin-bottom:9px; }
+  .fm-flabel { font-size:10.5px; font-weight:600; color:#333; margin-bottom:4px; }
+  .fm-input { height:34px; border:1px solid #e0ddd8; border-radius:8px; background:#fff; display:flex; align-items:center; padding:0 11px; font-size:11px; color:#b3ada5; }
+  .fm-input.focus { border-color:#D32027; box-shadow:0 0 0 3px rgba(211,32,39,.12); }
+  .fm-btn { margin-top:12px; height:40px; border-radius:9px; background:#c0392b; color:#fff; display:flex; align-items:center; justify-content:center; font-size:12.5px; font-weight:600; }
+  .fm-popup { margin-top:12px; border:1px dashed #4ade80; background:#f0fdf4; border-radius:9px; padding:9px 11px; font-size:10.5px; color:#256b3e; display:flex; gap:8px; align-items:flex-start; }
+  .ba-note { font-size:10px; color:#999; margin-top:8px; text-align:center; }
+
+  /* Changes list */
+  .changes { display:grid; grid-template-columns:repeat(2,1fr); gap:12px; margin-top:18px; }
+  .change-item { background:#161616; border:1px solid #2a2a2a; border-radius:12px; padding:1.1rem 1.3rem; display:flex; gap:12px; align-items:flex-start; }
+  .change-ico { width:34px;height:34px;border-radius:9px;background:#1c1c1c;border:1px solid #2a2a2a;display:flex;align-items:center;justify-content:center;color:#4ade80;flex-shrink:0; }
+  .change-t { font-size:14px; font-weight:500; color:#f5f5f5; margin-bottom:3px; }
+  .change-d { font-size:12.5px; color:#a0a0a0; line-height:1.55; }
+
+  /* Focus cards */
+  .focus-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+  .focus-card { background:#161616; border:1px solid #2a2a2a; border-radius:12px; padding:1.5rem; display:flex; flex-direction:column; gap:10px; }
+  .focus-ico { width:42px;height:42px;border-radius:10px;background:#1c1c1c;border:1px solid #2a2a2a;display:flex;align-items:center;justify-content:center;color:#D32027; }
+  .focus-t { font-size:15px; font-weight:500; color:#f5f5f5; }
+  .focus-d { font-size:13px; color:#a0a0a0; line-height:1.6; }
+
+  /* Next steps */
+  .steps { display:flex; flex-direction:column; gap:12px; }
+  .step { display:grid; grid-template-columns:44px 1fr; gap:16px; align-items:center; background:#161616; border:1px solid #2a2a2a; border-radius:12px; padding:1rem 1.3rem; }
+  .step-n { width:44px;height:44px;border-radius:50%;background:#D32027;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:16px; }
+  .step-t { font-size:15px; font-weight:500; color:#f5f5f5; margin-bottom:2px; }
+  .step-d { font-size:13px; color:#a0a0a0; line-height:1.5; }
+
+  footer { border-top: 1px solid #2a2a2a; padding: 2rem 0 3rem; margin-top: 2rem; font-size: 12px; color: #707070; text-align: center; }
+  footer .note { max-width:760px; margin:0 auto 10px; line-height:1.6; }
+
+  @media (max-width: 860px) {
+    .side-nav { display: none; }
+    .container { padding: 0 1.25rem; }
+    .hero-headline { font-size: 26px; }
+    .hero-highlight { font-size: 42px; }
+    .hero-numbers { gap: 28px; }
+    h1, h2 { font-size: 24px; }
+    .header-row { flex-direction: column; align-items: flex-start; gap: 16px; }
+    .kpi-grid, .kpi-grid.cols-3, .inter-grid, .inter-cards, .ba-grid, .changes, .focus-grid { grid-template-columns: 1fr; }
+    .funnel-row { grid-template-columns: 1fr; gap:6px; }
+    .funnel-meta { text-align:left; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="side-nav" aria-label="Navegación del reporte">
+  <a href="#hero" class="nav-dot" data-target="hero"><span class="nav-dot-marker"></span><span class="nav-dot-label">Resumen</span></a>
+  <a href="#resultados" class="nav-dot" data-target="resultados"><span class="nav-dot-marker"></span><span class="nav-dot-label">Resultados</span></a>
+  <a href="#evolucion" class="nav-dot" data-target="evolucion"><span class="nav-dot-marker"></span><span class="nav-dot-label">Evolución</span></a>
+  <a href="#interaccion" class="nav-dot" data-target="interaccion"><span class="nav-dot-marker"></span><span class="nav-dot-label">Interacción</span></a>
+  <a href="#embudo" class="nav-dot" data-target="embudo"><span class="nav-dot-marker"></span><span class="nav-dot-label">Embudo</span></a>
+  <a href="#optimizacion" class="nav-dot" data-target="optimizacion"><span class="nav-dot-marker"></span><span class="nav-dot-label">Optimización</span></a>
+  <a href="#enfoque" class="nav-dot" data-target="enfoque"><span class="nav-dot-marker"></span><span class="nav-dot-label">Enfoque</span></a>
+  <a href="#proximos" class="nav-dot" data-target="proximos"><span class="nav-dot-marker"></span><span class="nav-dot-label">Próximos</span></a>
+</nav>
+
+<div class="container">
+
+  <header class="top">
+    <div class="header-row">
+      <div class="header-text">
+        <span class="pill">Reporte 1 · Cierre de Fase 1</span>
+        <h1>Check-Up Empresarial · Resultados de campaña</h1>
+        <p class="subtitle">Periodo del 22 de mayo al 9 de junio de 2026 · Canal: Facebook (Meta)</p>
+        <div class="brand-accent"></div>
+      </div>
+      <div class="logo">
+        <img src="data:image/png;base64,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" alt="Auren" style="height: 84px; width: auto; display: block;">
+      </div>
+    </div>
+  </header>
+
+  <section id="hero" class="hero-section">
+    <p class="hero-eyebrow">La Fase 1 en una línea</p>
+    <p class="hero-headline">La campaña <span class="accent">alcanzó a 159 mil personas</span> y llevó a 4,505 al Check-Up — pero el formulario frenó la conversión</p>
+    <div class="hero-numbers">
+      <div class="hero-num-item"><span class="hero-highlight" data-counter="159504">0</span><span class="hero-num-label">Alcance</span></div>
+      <div class="hero-num-item"><span class="hero-highlight" data-counter="5586">0</span><span class="hero-num-label">Clics al enlace</span></div>
+      <div class="hero-num-item"><span class="hero-highlight" data-counter="4505">0</span><span class="hero-num-label">Visitas al Check-Up</span></div>
+    </div>
+    <p class="hero-supporting">La parte alta del embudo funcionó muy bien: tráfico abundante y de bajo costo hacia la landing. El cuello de botella estuvo en el llenado del diagnóstico, que ya fue optimizado durante esta fase.</p>
+  </section>
+
+  <section id="resultados">
+    <p class="section-num">7.1 · Resultados en redes</p>
+    <h2>Cómo se desempeñó la campaña</h2>
+    <p class="section-subtitle">Métricas de la campaña <strong>“CheckUp · Ventas · Lead · Always on 2026”</strong> en Facebook durante los 19 días de la Fase 1.</p>
+    <div class="kpi-grid">
+      <div class="kpi">
+        <div class="kpi-label">Alcance</div>
+        <div class="kpi-hint">Personas distintas que vieron el anuncio</div>
+        <div class="kpi-value" data-counter="159504">0</div>
+        <div class="kpi-sub">Frecuencia 1.47</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Impresiones</div>
+        <div class="kpi-hint">Veces que se mostró el anuncio</div>
+        <div class="kpi-value" data-counter="234924">0</div>
+        <div class="kpi-sub">CTR 2.83%</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Clics al enlace</div>
+        <div class="kpi-hint">Clics hacia aurenb.mx/check-up</div>
+        <div class="kpi-value" data-counter="5586">0</div>
+        <div class="kpi-sub">~294 clics/día</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Visitas al Check-Up</div>
+        <div class="kpi-hint">Visitas a la página de destino</div>
+        <div class="kpi-value" data-counter="4505">0</div>
+        <div class="kpi-sub">Tasa de resultados 1.92%</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="evolucion">
+    <p class="section-num">Evolución diaria</p>
+    <h2>El tráfico creció de forma sostenida</h2>
+    <p class="section-subtitle">Alcance, clics y visitas al Check-Up día a día. Los picos del 30 de mayo y del 7–8 de junio marcaron los mejores días de la fase.</p>
+    <div class="chart-card">
+      <div class="chart-wrap"><canvas id="dailyChart"></canvas></div>
+    </div>
+  </section>
+
+  <section id="interaccion">
+    <p class="section-num">Interacción</p>
+    <h2>Interacción con el contenido</h2>
+    <p class="section-subtitle">El anuncio no solo generó tráfico: también movió interacción dentro de la plataforma.</p>
+    <div class="inter-grid">
+      <div class="inter-hero">
+        <div class="inter-hero-value" data-counter="82163">0</div>
+        <div class="inter-hero-label">Interacciones con la publicación (clics, reproducciones y participación en la página)</div>
+      </div>
+      <div class="inter-cards">
+        <div class="inter-card"><div class="v" data-counter="488">0</div><div class="l">Reacciones</div></div>
+        <div class="inter-card"><div class="v" data-counter="55">0</div><div class="l">Guardados</div></div>
+        <div class="inter-card"><div class="v" data-counter="8">0</div><div class="l">Compartidos</div></div>
+        <div class="inter-card"><div class="v" data-counter="2">0</div><div class="l">Comentarios</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="embudo">
+    <p class="section-num">7.2 · Resultado principal</p>
+    <h2>El embudo de conversión</h2>
+    <p class="section-subtitle">Del alcance al diagnóstico completado. El recorrido revela exactamente dónde se perdió la conversión.</p>
+    <div class="funnel" id="funnel">
+      <div class="funnel-row">
+        <div class="funnel-meta"><div class="fl">Alcance</div><div class="fv">159,504</div></div>
+        <div class="funnel-bar-track"><div class="funnel-bar" data-width="100"><span class="funnel-bar-pct">Personas alcanzadas</span></div></div>
+      </div>
+      <div class="funnel-row">
+        <div class="funnel-meta"><div class="fl">Clics al enlace</div><div class="fv">5,586 <span class="funnel-conv">· 3.5% del alcance</span></div></div>
+        <div class="funnel-bar-track"><div class="funnel-bar" data-width="34"><span class="funnel-bar-pct">Interés en el Check-Up</span></div></div>
+      </div>
+      <div class="funnel-row">
+        <div class="funnel-meta"><div class="fl">Visitas al Check-Up</div><div class="fv">4,505 <span class="funnel-conv">· 81% de los clics</span></div></div>
+        <div class="funnel-bar-track"><div class="funnel-bar" data-width="27"><span class="funnel-bar-pct">Llegaron a la landing</span></div></div>
+      </div>
+      <div class="funnel-row">
+        <div class="funnel-meta"><div class="fl">Diagnósticos completados</div><div class="fv" style="color:#f87171;">0 <span class="funnel-conv">· 0% de las visitas</span></div></div>
+        <div class="funnel-bar-track"><div class="funnel-bar zero" data-width="3"><span class="funnel-bar-pct">0 leads completados</span></div></div>
+      </div>
+    </div>
+    <div style="margin-top:1.4rem;">
+      <div class="insight-card">
+        <div class="insight-stat">0</div>
+        <p class="insight-title">Ningún visitante completó el diagnóstico al 100% durante la Fase 1</p>
+        <p class="insight-text">La campaña hizo bien su trabajo: <span class="accent">4,505 personas llegaron al Check-Up</span> con un costo de tráfico muy eficiente. Sin embargo, el formulario original —que anunciaba “20 preguntas” y pedía 5 datos de contacto de entrada— generó demasiada fricción y <span class="accent">nadie llegó a terminarlo</span>. Este hallazgo, lejos de ser un fracaso, es el aprendizaje más valioso de la fase: el contenido y la pauta convierten en clics; el punto a resolver estaba en la experiencia del formulario. Por eso se ejecutaron las optimizaciones de la siguiente sección.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="optimizacion">
+    <p class="section-num">Fase de optimización</p>
+    <h2>Qué cambiamos en el formulario</h2>
+    <p class="section-subtitle">A partir del hallazgo, se rediseñó la experiencia del Check-Up para reducir la fricción y facilitar el inicio.</p>
+    <div class="ba-grid">
+      <div>
+        <div class="ba-col-label"><span class="ba-tag before">Antes</span><span class="ba-friction">Alta fricción</span></div>
+        <div class="form-mock">
+          <span class="fm-badge">Autodiagnóstico gratuito</span>
+          <div class="fm-title">Check-Up Empresarial</div>
+          <div class="fm-sub">Responde <b>20 preguntas</b> y recibe un diagnóstico personalizado al instante.</div>
+          <div class="fm-field"><div class="fm-flabel">Nombre completo *</div><div class="fm-input">Ej: Juan Pérez García</div></div>
+          <div class="fm-field"><div class="fm-flabel">Empresa *</div><div class="fm-input">Ej: Grupo Industrial del Bajío</div></div>
+          <div class="fm-field"><div class="fm-flabel">Correo electrónico *</div><div class="fm-input">Ej: juan@empresa.com</div></div>
+          <div class="fm-field"><div class="fm-flabel">Teléfono *</div><div class="fm-input">Ej: 477 123 4567</div></div>
+          <div class="fm-field"><div class="fm-flabel">Cargo / Puesto</div><div class="fm-input">Ej: Director General</div></div>
+          <div class="fm-btn">Comenzar mi diagnóstico →</div>
+        </div>
+        <p class="ba-note">5 campos obligatorios + “20 preguntas” antes de empezar</p>
+      </div>
+      <div>
+        <div class="ba-col-label"><span class="ba-tag after">Después</span><span class="ba-friction">Fricción reducida</span></div>
+        <div class="form-mock">
+          <span class="fm-badge">Autodiagnóstico gratuito</span>
+          <div class="fm-title">Check-Up Empresarial</div>
+          <div class="fm-sub">Descubre en 5 minutos el nivel de salud fiscal, legal y corporativa de tu empresa. Responde <b>unas preguntas rápidas</b>.</div>
+          <div class="fm-field"><div class="fm-flabel">¿Cómo te llamas?</div><div class="fm-input focus">Carlos</div></div>
+          <div class="fm-btn">Comenzar mi diagnóstico →</div>
+          <div class="fm-popup"><span>✋</span><span>Pop-up de salida (exit-intent): si el usuario intenta abandonar, se le invita a continuar.</span></div>
+        </div>
+        <p class="ba-note">Un solo campo para iniciar · sin mencionar “20 preguntas”</p>
+      </div>
+    </div>
+
+    <div class="changes">
+      <div class="change-item">
+        <div class="change-ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div><div class="change-t">Inicio más simple</div><div class="change-d">El formulario ahora abre pidiendo únicamente el nombre, en lugar de 5 campos de contacto de golpe.</div></div>
+      </div>
+      <div class="change-item">
+        <div class="change-ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div><div class="change-t">Se quitó “20 preguntas”</div><div class="change-d">El copy ya no anuncia el número de preguntas; ahora comunica un proceso ágil de “unas preguntas rápidas”.</div></div>
+      </div>
+      <div class="change-item">
+        <div class="change-ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div><div class="change-t">Pop-up de salida (exit-intent)</div><div class="change-d">Se agregó un mensaje que aparece cuando el usuario intenta abandonar, para recuperar al visitante antes de que se vaya.</div></div>
+      </div>
+      <div class="change-item">
+        <div class="change-ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div><div class="change-t">Optimización de la campaña</div><div class="change-d">Se ajustó la pauta para mejorar la calidad del tráfico y la eficiencia del presupuesto.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="enfoque">
+    <p class="section-num">7.3 · Lectura de desempeño</p>
+    <h2>Por qué concentramos todo en Facebook</h2>
+    <p class="section-subtitle">Una decisión deliberada para validar la conversión antes de escalar.</p>
+    <div class="focus-grid">
+      <div class="focus-card">
+        <div class="focus-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2z"/><path d="M12 8v4l3 2"/></svg></div>
+        <div class="focus-t">Validar antes de escalar</div>
+        <div class="focus-d">Mantenemos un solo canal activo hasta confirmar que el formulario optimizado sí convierte. Primero validamos, luego escalamos.</div>
+      </div>
+      <div class="focus-card">
+        <div class="focus-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+        <div class="focus-t">Cuidar el presupuesto</div>
+        <div class="focus-d">Concentrar la inversión en el canal de mejor desempeño evita gastar en plataformas adicionales mientras se resuelve la conversión.</div>
+      </div>
+      <div class="focus-card">
+        <div class="focus-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
+        <div class="focus-t">Medir con claridad</div>
+        <div class="focus-d">Con un único canal aislamos las variables: cualquier mejora en la conversión es atribuible directamente a los cambios del formulario.</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="proximos">
+    <p class="section-num">Próximos pasos</p>
+    <h2>Qué sigue para la Fase 2</h2>
+    <p class="section-subtitle">El objetivo inmediato es convertir el tráfico que ya existe en diagnósticos completados.</p>
+    <div class="steps">
+      <div class="step"><div class="step-n">1</div><div><div class="step-t">Medir la conversión del formulario optimizado</div><div class="step-d">Confirmar cuántos visitantes ahora completan el Check-Up con el inicio simplificado y el pop-up de salida.</div></div></div>
+      <div class="step"><div class="step-n">2</div><div><div class="step-t">Validar en Facebook</div><div class="step-d">Sostener el canal activo hasta tener una tasa de diagnósticos completados estable y rentable.</div></div></div>
+      <div class="step"><div class="step-n">3</div><div><div class="step-t">Reactivar Instagram, LinkedIn y TikTok</div><div class="step-d">Una vez validada la conversión, escalar a los demás canales con el aprendizaje ya incorporado (Fase 2).</div></div></div>
+    </div>
+  </section>
+
+  <footer>
+    <p class="note">Reporte 1 · Cierre de Fase 1 — Campaña Check-Up Empresarial Auren. Datos de Facebook (Meta) del 22 de mayo al 9 de junio de 2026. La métrica “Visitas al Check-Up” corresponde a visitas a la página de destino; “Diagnósticos completados” se refiere a formularios finalizados al 100%.</p>
+    Auren México · 2026 — Documento interno de campaña.
+  </footer>
+
+</div>
+
+<script>
+  // Counters
+  function animateCounter(el) {
+    if (el.dataset.animated) return; el.dataset.animated = 'true';
+    const target = parseFloat(el.dataset.counter), suffix = el.dataset.suffix || '', duration = 1400, start = performance.now();
+    (function frame(now){ const p = Math.min((now-start)/duration,1); const e = 1-Math.pow(1-p,3);
+      el.textContent = Math.round(target*e).toLocaleString('es-MX') + suffix; if (p<1) requestAnimationFrame(frame); })(start);
+  }
+  // Funnel reveal
+  function revealFunnel(){ document.querySelectorAll('#funnel .funnel-bar').forEach((b,i)=>{ if(b.dataset.shown) return; b.dataset.shown='true';
+    setTimeout(()=>{ b.style.width=b.dataset.width+'%'; const p=b.querySelector('.funnel-bar-pct'); if(p) p.style.opacity='1'; }, 120+i*180); }); }
+
+  if ('IntersectionObserver' in window) {
+    const obs = new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ const el=e.target;
+      if(el.dataset.counter) animateCounter(el); if(el.id==='funnel') revealFunnel(); if(el.id==='evolucion') renderChart(); } }),{threshold:0.25});
+    document.querySelectorAll('[data-counter]').forEach(el=>obs.observe(el));
+    ['funnel','evolucion'].forEach(id=>{const el=document.getElementById(id); if(el) obs.observe(el);});
+  } else { document.querySelectorAll('[data-counter]').forEach(animateCounter); revealFunnel(); window.addEventListener('load',renderChart); }
+
+  // Side nav
+  const navDots=document.querySelectorAll('.nav-dot');
+  const navObs=new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting) navDots.forEach(d=>d.classList.toggle('active',d.dataset.target===e.target.id)); }),{rootMargin:'-40% 0px -40% 0px'});
+  document.querySelectorAll('section[id]').forEach(s=>navObs.observe(s));
+
+  // Daily chart
+  let chartDone=false;
+  function renderChart(){
+    if(chartDone) return; const ctx=document.getElementById('dailyChart'); if(!ctx||typeof Chart==='undefined') return; chartDone=true;
+    const labels=["22 may","23","24","25","26","27","28","29","30","31","1 jun","2","3","4","5","6","7","8","9"];
+    const reach=[8648,6976,10888,10703,9578,10467,10745,14251,19441,11142,10335,9752,11297,11970,13739,10489,18953,19222,4576];
+    const clics=[196,194,257,264,215,269,299,334,419,307,291,262,339,358,331,296,427,412,116];
+    const visitas=[127,136,206,240,168,215,250,273,331,249,202,211,269,299,281,235,368,350,95];
+    new Chart(ctx,{ type:'line', data:{ labels, datasets:[
+      {label:'Alcance', data:reach, yAxisID:'y', borderColor:'#D32027', backgroundColor:'rgba(211,32,39,0.08)', fill:true, tension:0.35, borderWidth:2.5, pointRadius:0, pointHoverRadius:4},
+      {label:'Clics al enlace', data:clics, yAxisID:'y1', borderColor:'#facc15', backgroundColor:'transparent', tension:0.35, borderWidth:2, pointRadius:0, pointHoverRadius:4},
+      {label:'Visitas al Check-Up', data:visitas, yAxisID:'y1', borderColor:'#4ade80', backgroundColor:'transparent', tension:0.35, borderWidth:2, pointRadius:0, pointHoverRadius:4}
+    ]}, options:{ responsive:true, maintainAspectRatio:false, interaction:{mode:'index',intersect:false},
+      plugins:{ legend:{position:'bottom', labels:{color:'#c0c0c0', font:{size:12}, boxWidth:14, padding:14}},
+        tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.parsed.y.toLocaleString('es-MX')}} },
+      scales:{
+        x:{ ticks:{color:'#9a9a9a', maxRotation:0, autoSkipPadding:14}, grid:{color:'rgba(255,255,255,0.04)'} },
+        y:{ position:'left', ticks:{color:'#D32027', callback:v=>v.toLocaleString('es-MX')}, grid:{color:'rgba(255,255,255,0.05)'}, title:{display:true,text:'Alcance',color:'#9a9a9a',font:{size:11}} },
+        y1:{ position:'right', ticks:{color:'#9a9a9a', callback:v=>v.toLocaleString('es-MX')}, grid:{drawOnChartArea:false}, title:{display:true,text:'Clics / Visitas',color:'#9a9a9a',font:{size:11}} }
+      } } });
+  }
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js" onload="if(document.getElementById('dailyChart').getBoundingClientRect().top < window.innerHeight) renderChart();"></script>
+
+</body>
+</html>
