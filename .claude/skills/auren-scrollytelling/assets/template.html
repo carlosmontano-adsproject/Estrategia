@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{TITULO}} · Auren</title>
+<style>
+/* >>> PEGAR AQUÍ el contenido de assets/engine.css <<< */
+</style>
+</head>
+<body>
+
+<!-- Side nav: un .nav-dot por cada <section id="..."> -->
+<nav class="side-nav" aria-label="Navegación">
+  <a href="#hero" class="nav-dot" data-target="hero"><span class="nav-dot-marker"></span><span class="nav-dot-label">Resumen</span></a>
+  <!-- ...repetir por sección... -->
+</nav>
+
+<div class="container">
+
+  <header class="top">
+    <div class="header-row">
+      <div class="header-text">
+        <h1>{{TITULO}}</h1>
+        <p class="subtitle">{{SUBTITULO}}</p>
+        <div class="brand-accent"></div>
+      </div>
+      <div class="logo">
+        <!-- Pegar el data URI de assets/auren-logo.txt en src -->
+        <img src="{{AUREN_LOGO_DATA_URI}}" alt="Auren" style="height:84px;width:auto;display:block;">
+      </div>
+    </div>
+  </header>
+
+  <section id="hero" class="hero-section">
+    <p class="hero-eyebrow">{{EYEBROW}}</p>
+    <p class="hero-headline">{{TITULAR_GRANDE}}</p>
+    <div class="hero-numbers">
+      <div class="hero-num-item"><span class="hero-highlight" data-counter="7">0</span><span class="hero-num-label">Etiqueta</span></div>
+      <!-- ...más números... -->
+    </div>
+    <p class="hero-supporting">{{TEXTO_APOYO}}</p>
+  </section>
+
+  <!-- >>> INSERTAR SECCIONES desde reference/components.md <<< -->
+
+  <footer>{{PIE}}</footer>
+
+</div>
+
+<script>
+  // Definir videos antes del engine (si aplica la galería):
+  window.VIDEOS = [
+    // { n: 1, title: "Título", phase: "Fase 1", id: "DRIVE_FILE_ID" },
+  ];
+</script>
+<script>
+/* >>> PEGAR AQUÍ el contenido de assets/engine.js <<< */
+</script>
+
+</body>
+</html>
